@@ -10,8 +10,8 @@ angular.module('myApp', [
     .controller('AppController', AppController);
 
 
-AppController.$inject = ['$scope'];
-function AppController($scope) {
+AppController.$inject = ['$scope', '$http'];
+function AppController($scope, $http) {
     var myDataRef = new Firebase('https://chat-acdesarrollos.firebaseio.com/');
 
     var vm = this;
@@ -24,7 +24,7 @@ function AppController($scope) {
 
     function enviar(id) {
 
-        console.log(id);
+        //console.log(id);
         var mensajeInput = angular.element(document.querySelector('#input-' + id));
 
 
@@ -55,6 +55,9 @@ function AppController($scope) {
 
         if (!encontrado) {
             vm.idChats.push(mensaje.id);
+
+            sendMail( mensaje.mail, mensaje.name);
+
             var messagesList = angular.element(document.querySelector('#chats'));
             messagesList.append('<div class="chat-container" id="container-' + mensaje.id + '">' +
                 '<button id="close-' + mensaje.id + '">X</button>' +
@@ -113,5 +116,32 @@ function AppController($scope) {
             //$digest or $apply
             $scope.$apply();
         }
+    }
+
+
+    function sendMail(email, nombre) {
+
+        //console.log(vm.mail);
+        return $http.post('./contacto/contact.php',
+            {'email': email, 'nombre': nombre, 'mensaje': 'Hay un nuevo chat en la web', 'asunto': 'Nuevo chat de cliente'})
+            .success(
+            function (data) {
+                console.log(data);
+                //vm.enviado = true;
+                //$timeout(hideMessage, 3000);
+                //function hideMessage(){
+                //    vm.enviado = false;
+                //}
+
+                vm.email = '';
+                vm.nombre = '';
+                vm.mensaje = '';
+                vm.asunto = '';
+
+                //goog_report_conversion('http://www.ac-desarrollos.com/#');
+            })
+            .error(function (data) {
+                console.log(data);
+            });
     }
 }
