@@ -123,7 +123,7 @@ function AppController($scope, $http) {
 
         //console.log(vm.mail);
         return $http.post('./contacto/contact.php',
-            {'email': email, 'nombre': nombre, 'mensaje': 'Hay un nuevo chat en la web', 'asunto': 'Nuevo chat de cliente'})
+            {'email': email, 'nombre': nombre, 'mensaje': 'http://192.185.67.199/~arielces/ac-desarrollos-chat/', 'asunto': 'Nuevo chat de cliente'})
             .success(
             function (data) {
                 console.log(data);
