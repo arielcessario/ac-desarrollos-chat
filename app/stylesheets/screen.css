@@ -67,9 +67,42 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
   display: block;
 }
 
-/* line 8, ../sass/screen.scss */
+/* line 7, ../sass/screen.scss */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* line 11, ../sass/screen.scss */
+#chats {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+/* line 18, ../sass/screen.scss */
 .chat-container {
   display: flex;
   flex-direction: column;
   max-width: 30%;
+  min-width: 220px;
+  border: 1px solid #039FB2;
+  background-color: #039FB2;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 5px black;
+  -moz-box-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 5px black;
+  margin: 5px;
+  min-height: 250px;
+  color: white;
+}
+/* line 32, ../sass/screen.scss */
+.chat-container div {
+  min-height: 220px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+/* line 37, ../sass/screen.scss */
+.chat-container input {
+  color: black;
+  border: 0px solid;
 }

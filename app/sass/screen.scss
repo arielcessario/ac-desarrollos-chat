@@ -2,11 +2,41 @@
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-
 @import "compass/reset";
 
-.chat-container{
+body{
+  font-family: 'Roboto', sans-serif;
+}
+
+#chats{
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.chat-container {
   display: flex;
   flex-direction: column;
   max-width: 30%;
+  min-width: 220px;
+  border: 1px solid #039FB2;
+  background-color: #039FB2;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 5px black;
+  -moz-box-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 5px black;
+  margin: 5px;
+  min-height: 250px;
+  color: white;
+  div {
+    min-height: 220px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  input {
+    color: black;
+    border: 0px solid;
+  }
+
 }

@@ -28,12 +28,23 @@ function AppController($scope) {
         var mensajeInput = angular.element(document.querySelector('#input-' + id));
 
 
-        myDataRef.push({id:id, name: 'Ariel', message: mensajeInput[0].value, mail: 'ventas@ac-desarrollos.com'});
+        myDataRef.push({id: id, name: 'Ariel', message: mensajeInput[0].value, mail: 'ventas@ac-desarrollos.com'});
+        mensajeInput[0].value = '';
     }
+
+
+    //myDataRef.on("value", function(snapshot) {
+    //    console.log(snapshot.val());
+    //}, function (errorObject) {
+    //    console.log("The read failed: " + errorObject.code);
+    //});
+
 
     myDataRef.on('child_added', function (snapshot) {
         var mensaje = snapshot.val();
         var encontrado = false;
+
+        console.log(snapshot.key());
 
 
         for (var i = 0; i < vm.idChats.length; i++) {
@@ -48,15 +59,19 @@ function AppController($scope) {
             messagesList.append('<div class="chat-container">' +
                 '<div id="messages-' + mensaje.id + '"></div>' +
                 '<input ng-model="appCtrl.mensaje" id="input-' + mensaje.id + '" type="text">' +
-                '<button id="btn-'+mensaje.id+'">Enviar</button>' +
                 '</div>');
 
 
-            var button = angular.element(document.querySelector('#btn-'+mensaje.id));
-            button.bind('click', function(){
-                enviar(mensaje.id);
+            var input = angular.element(document.querySelector('#input-' + mensaje.id));
+            input.bind('keypress', function (event) {
+
+                if (event.keyCode == 13) {
+                    enviar(mensaje.id);
+
+                }
             });
         }
+        ;
 
         appendMessage(mensaje.id, mensaje.name, mensaje.message);
     });
