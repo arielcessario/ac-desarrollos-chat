@@ -56,7 +56,7 @@ function AppController($scope, $http) {
         if (!encontrado) {
             vm.idChats.push(mensaje.id);
 
-            sendMail( mensaje.mail, mensaje.name);
+            //sendMail( mensaje.mail, mensaje.name);
 
             var messagesList = angular.element(document.querySelector('#chats'));
             messagesList.append('<div class="chat-container" id="container-' + mensaje.id + '">' +
