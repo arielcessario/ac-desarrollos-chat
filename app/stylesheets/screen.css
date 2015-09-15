@@ -94,14 +94,26 @@ body {
   margin: 5px;
   min-height: 250px;
   color: white;
+  position: relative;
 }
-/* line 32, ../sass/screen.scss */
+/* line 34, ../sass/screen.scss */
+.chat-container button {
+  position: absolute;
+  bottom: 16px;
+  right: 8px;
+  border: 0px solid;
+  width: 10px;
+  height: 10px;
+  background-color: transparent;
+  color: black;
+}
+/* line 45, ../sass/screen.scss */
 .chat-container div {
   min-height: 220px;
   overflow-y: auto;
   overflow-x: hidden;
 }
-/* line 37, ../sass/screen.scss */
+/* line 50, ../sass/screen.scss */
 .chat-container input {
   color: black;
   border: 0px solid;

@@ -29,6 +29,19 @@ body{
   margin: 5px;
   min-height: 250px;
   color: white;
+  position: relative;
+
+  button{
+    position: absolute;
+    bottom: 16px;
+    right: 8px;
+    border: 0px solid;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(0,0,0,0);
+    color: black;
+
+  }
   div {
     min-height: 220px;
     overflow-y: auto;

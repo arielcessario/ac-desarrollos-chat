@@ -44,7 +44,7 @@ function AppController($scope) {
         var mensaje = snapshot.val();
         var encontrado = false;
 
-        console.log(snapshot.key());
+        //console.log(snapshot.key());
 
 
         for (var i = 0; i < vm.idChats.length; i++) {
@@ -56,7 +56,8 @@ function AppController($scope) {
         if (!encontrado) {
             vm.idChats.push(mensaje.id);
             var messagesList = angular.element(document.querySelector('#chats'));
-            messagesList.append('<div class="chat-container">' +
+            messagesList.append('<div class="chat-container" id="container-' + mensaje.id + '">' +
+                '<button id="close-' + mensaje.id + '">X</button>' +
                 '<div id="messages-' + mensaje.id + '"></div>' +
                 '<input ng-model="appCtrl.mensaje" id="input-' + mensaje.id + '" type="text">' +
                 '</div>');
@@ -70,8 +71,37 @@ function AppController($scope) {
 
                 }
             });
+
+            var button = angular.element(document.querySelector('#close-' + mensaje.id));
+            button.bind('click', function (event) {
+
+                var r = confirm('Realmente desea borrar el chat?');
+                if (!r) {
+                    return;
+                }
+
+                myDataRef.orderByValue().on("value", function (snapshot_to_delete) {
+                    snapshot_to_delete.forEach(function (data) {
+                        //console.log("The " + data.key() + " dinosaur's score is " + data.val().id);
+                        //messagesList.remove()
+                        if (data.val().id == mensaje.id) {
+                            console.log(data.key());
+                            var refToRemove = new Firebase('https://chat-acdesarrollos.firebaseio.com/' + data.key());
+                            refToRemove.remove();
+                            //data.set(null);
+                            var chat = angular.element(document.querySelector('#container-' + mensaje.id));
+                            chat.remove();
+                        }
+
+
+                    });
+                    //console.log(snapshot_to_delete.val());
+                }, function (errorObject) {
+                    console.log("The read failed: " + errorObject.code);
+                });
+            });
         }
-        ;
+
 
         appendMessage(mensaje.id, mensaje.name, mensaje.message);
     });
