@@ -28,7 +28,17 @@ function AppController($scope, $http) {
         var mensajeInput = angular.element(document.querySelector('#input-' + id));
 
 
-        myDataRef.push({id: id, name: 'Ariel', message: mensajeInput[0].value, mail: 'ventas@ac-desarrollos.com'});
+        var currentDate = Date.now();
+        var date_time = convertDate(currentDate) + ' ' + getTime(currentDate);
+
+        myDataRef.push({
+            id: id,
+            name: 'ac-desarrollos',
+            message: mensajeInput[0].value,
+            mail: 'ventas@ac-desarrollos.com',
+            date_time: date_time,
+            chat_type: 2});
+
         mensajeInput[0].value = '';
     }
 
@@ -60,10 +70,11 @@ function AppController($scope, $http) {
 
             var messagesList = angular.element(document.querySelector('#chats'));
             messagesList.append('<div class="chat-container" id="container-' + mensaje.id + '">' +
-                '<button id="close-' + mensaje.id + '">X</button>' +
                 '<div id="messages-' + mensaje.id + '"></div>' +
+                '<div class="chat-mensaje">' +
+                '<button id="close-' + mensaje.id + '">X</button>' +
                 '<input ng-model="appCtrl.mensaje" id="input-' + mensaje.id + '" type="text">' +
-                '</div>');
+                '</div></div>');
 
 
             var input = angular.element(document.querySelector('#input-' + mensaje.id));
@@ -106,9 +117,24 @@ function AppController($scope, $http) {
         }
 
 
-        appendMessage(mensaje.id, mensaje.name, mensaje.message);
+        //appendMessage(mensaje.id, mensaje.name, mensaje.message);
+        appendMessage(mensaje);
     });
 
+    function appendMessage(mensaje) {
+        var messages = angular.element(document.querySelector('#messages-' + mensaje.id));
+        if(mensaje.chat_type == 1)
+            messages.append('<div class="chat-cliente"><p>' + mensaje.name + ' dice: ' + mensaje.message + '</p><p class="chat-hora">' + mensaje.date_time + '</p></div>');
+        else
+            messages.append('<div class="chat-ac"><p>' + mensaje.name + ' dice: ' + mensaje.message + '</p><p class="chat-hora">' + mensaje.date_time + '</p></div>');
+
+        if (!$scope.$$phase) {
+            //$digest or $apply
+            $scope.$apply();
+        }
+    }
+
+    /*
     function appendMessage(id, nombre, text) {
         var messages = angular.element(document.querySelector('#messages-' + id));
         messages.append('<p>' + nombre + ' dice: ' + text + '</p>');
@@ -117,6 +143,7 @@ function AppController($scope, $http) {
             $scope.$apply();
         }
     }
+    */
 
 
     function sendMail(email, nombre) {
@@ -144,4 +171,17 @@ function AppController($scope, $http) {
                 console.log(data);
             });
     }
+
+    function convertDate(inputFormat) {
+        function pad(s) { return (s < 10) ? '0' + s : s; }
+        var d = new Date(inputFormat);
+        return [pad(d.getDate()), pad(d.getMonth()+1), d.getFullYear()].join('/');
+    }
+
+    function getTime(dateTime) {
+        function pad(s) { return (s < 8) ? '0' + s : s; }
+        var d = new Date(dateTime);
+        return [pad(d.getHours()), pad(d.getMinutes()+1), d.getSeconds()].join(':');
+    }
+
 }
