@@ -27,29 +27,33 @@ body{
   -moz-box-shadow: 0px 0px 5px black;
   box-shadow: 0px 0px 5px black;
   margin: 5px;
-  min-height: 250px;
+  //min-height: 250px;
   color: white;
   position: relative;
+  height: 300px;
+  overflow-y: auto;
 
   button{
-    position: absolute;
-    bottom: 16px;
+    //position: absolute;
+    //bottom: 16px;
     right: 8px;
     border: 0px solid;
-    width: 10px;
-    height: 10px;
+    //width: 10px;
+    //height: 10px;
     background-color: rgba(0,0,0,0);
     color: black;
 
   }
   div {
-    min-height: 220px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    //min-height: 220px;
+    //overflow-y: auto;
+    //overflow-x: hidden;
   }
   input {
     color: black;
     border: 0px solid;
+    margin: 5px;
+    width: 85%;
   }
 
 }
